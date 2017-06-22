@@ -15,7 +15,7 @@ class UsersController extends AppController
         if($this->Auth->user()){
             $this->viewBuilder()->layout('after_login');
         }
-        $this->Auth->allow(['testWebService']);
+        $this->Auth->allow(['testWebService','adminLogin']);
     }
     public function testWebService(){
         $result = [];
@@ -24,9 +24,10 @@ class UsersController extends AppController
         echo json_encode($result);exit();
     }
     public function signup(){
-        $user = $this->Users->newEntity();
+        $user = $this->Users->newEntity();        
         if ($this->request->is('post')) {
-            $user = $this->Users->patchEntity9($user, $this->request->data);
+            $user = $this->Users->patchEntity($user, $this->request->data);   
+            $user->role = 'User';
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
                 return $this->redirect(['action' => 'signup']);
@@ -38,14 +39,34 @@ class UsersController extends AppController
     
     public function login()
     {
-        if ($this->request->is('post')) {            
-            $user = $this->Auth->identify();
-            //pr($user);exit;
-            if ($user) {
+        if($this->request->is('post')){
+            $userDetails = $this->request->is('post');
+            $user = $this->Auth->identify();            
+            if ($user['role'] === 'User') {
                 $this->Auth->setUser($user);
                 return $this->redirect(['controller'=>'pages','action'=>'index']);
+            }else{
+                $this->Flash->error(__('Invalid Admin Access '));
+                return $this->redirect(['controller'=>'Users','action'=>'admin_login']);
             }
-            $this->Flash->error(__('Invalid username or password, try again'));
+            
+        }       
+    }
+    
+    public function adminLogin()
+    {
+        $this->viewBuilder()->layout('admin_login');
+        if($this->request->is('post')){
+            $userDetails = $this->request->is('post');
+            $user = $this->Auth->identify();            
+            if ($user['role'] === 'Admin') {
+                $this->Auth->setUser($user);
+                return $this->redirect(['controller'=>'pages','action'=>'index']);
+            }else{
+                $this->Flash->error(__('Invalid Admin Access '));
+                return $this->redirect(['controller'=>'Users','action'=>'admin_login']);
+            }
+            
         }
     }
     public function info(){

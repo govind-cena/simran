@@ -3,14 +3,14 @@
     <?= $this->Form->create() ?>
       <div class="row">
         <div class="input-field col s12">
-            <input id="email" name="username" type="email" class="validate">
-          <label for="email">Email</label>
+            <input id="username" name="username" type="text">
+          <label for="username">Email</label>
         </div>
       </div>
         
       <div class="row">
         <div class="input-field col s12">
-          <input id="password" name="password" type="password" class="validate">
+          <input id="password" name="password" type="password">
           <label for="password">Password</label>
         </div>
       </div>
