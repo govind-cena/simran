@@ -3,7 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/web/htdocs/management/config/app.php</file>
+            <file>file:/D:/web/htdocs/simran/src/Controller/AppController.php</file>
+            <file>file:/D:/web/htdocs/simran/src/Template/Layout/admin_login.ctp</file>
+            <file>file:/D:/web/htdocs/simran/src/Template/Layout/default.ctp</file>
+            <file>file:/D:/web/htdocs/simran/src/Template/Users/admin_login.ctp</file>
+            <file>file:/D:/web/htdocs/simran/src/Controller/UsersController.php</file>
+            <file>file:/D:/web/htdocs/simran/src/Template/Element/Flash/default.ctp</file>
+            <file>file:/D:/web/htdocs/simran/src/Template/Users/login.ctp</file>
         </group>
     </open-files>
 </project-private>

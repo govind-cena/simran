@@ -5,6 +5,7 @@ namespace App\Controller;
 use Cake\Core\Configure;
 use Cake\Network\Exception\NotFoundException;
 use Cake\View\Exception\MissingTemplateException;
+use Cake\ORM\TableRegistry;
 
 
 class UsersController extends AppController
@@ -16,6 +17,27 @@ class UsersController extends AppController
             $this->viewBuilder()->layout('after_login');
         }
         $this->Auth->allow(['testWebService','adminLogin']);
+    }
+    public function studentDetails(){
+        $this->viewBuilder()->layout('after_login');
+        
+        $cityTable = TableRegistry::get('Cities');
+        $list = $cityTable->find('list')->toArray();
+        
+        $userDetails = $this->Users->find('all',[
+            'contain'=>'StudentDetails'
+        ])->toArray();
+        
+        $this->set(compact('userDetails','list'));
+        
+    }public function studentDetails_old(){
+        $this->viewBuilder()->layout('after_login');
+        $studentDetails = TableRegistry::get('StudentDetails');
+        $userDetails = $studentDetails->find('all',[
+            'contain'=>'Users'
+        ])->toArray();
+        $this->set(compact('userDetails'));
+        
     }
     public function testWebService(){
         $result = [];
